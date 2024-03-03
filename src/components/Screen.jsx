@@ -1,6 +1,6 @@
 
 export default function Screen(color) {
-  console.log(color.therealcolor)
+  
   return (
     <div
           style={{ 

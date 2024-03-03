@@ -4,7 +4,7 @@ import Checkbox from "./Checkbox"
 import Slots from "./Slots"
 import Paleta from "./Paleta"
 import { useState } from "react"
-import {handleColorPack, createnewColor, sethexcolors, handleSlots2} from './Setnewgame'
+import {handleColorPack, createnewColor, sethexcolors, handleSlots2, checkColors} from './Setnewgame'
 
 export default function Game() {
   
@@ -14,15 +14,16 @@ export default function Game() {
   const [bg60, setbg60] = useState('#242424')
   const [bg25, setbg25] = useState('#242424')
   const [bg15, setbg15] = useState('#242424')
-  
   const [colorPack, setColorPack] = useState([])
   const [colorhexPack, setColorHexPack] = useState([])
   const [thecolor, setThecolor] = useState([])
+  const [checkmate, setcheckmate] = useState(false)
+  const [misatge, setMisatge] = useState('')
 
   if(colorPack.length === 0) {
     let test = handleColorPack()
     setColorPack(test)
-    console.log(test)
+    //console.log(test)
     let hextest = sethexcolors(test)
     setColorHexPack(hextest)
     console.log(hextest)
@@ -41,8 +42,24 @@ export default function Game() {
       <Screens 
       thecolor = {thecolor}
       />
-      <Checkbox />
-      <Slots />
+      <Checkbox 
+      checkColors = {checkColors}
+      slots = {slots}
+      setSlots = {setSlots}
+      count = {count}
+      setCount = {setCount}
+      colorhexPack={colorhexPack}
+      setcheckmate = {setcheckmate}
+      misatge = {misatge}
+      setMisatge = {setMisatge}
+      
+      />
+      <Slots 
+      slots = {slots}
+      bg60 = {bg60}
+      bg25 = {bg25}
+      bg15 = {bg15}
+       />
       <Paleta 
         colorhexPack = {colorhexPack}
         handleSlots2 = {handleSlots2}

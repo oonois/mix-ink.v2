@@ -11,7 +11,7 @@ export function handleColorPack(){
   return packcolor 
 }
 
-export function handleSlots2(color,slots,setSlots) {
+export function handleSlots2(color,slots,setSlots,setbg60,setbg25,setbg15) {
   if(slots[1] === null){
     const prevSlots = slots
     setSlots([prevSlots[0],color,prevSlots[2], prevSlots[3]])
@@ -21,22 +21,6 @@ export function handleSlots2(color,slots,setSlots) {
     setSlots([prevSlots[0],prevSlots[1],color , prevSlots[3]])
     setbg25(color)
   } else if (slots[3] === null){
-    const prevSlots = slots
-    setSlots([prevSlots[0],prevSlots[1], prevSlots[2], color])
-    setbg15(color)
-  }   
-}
-
-export function handleSlots(color) {
-  if(mirror60 === null){
-    const prevSlots = slots
-    setSlots([prevSlots[0],color,prevSlots[2], prevSlots[3]])
-    setbg60(color)
-  }else if (mirror25 === null){
-    const prevSlots = slots
-    setSlots([prevSlots[0],prevSlots[1],color , prevSlots[3]])
-    setbg25(color)
-  } else if (mirror15 === null){
     const prevSlots = slots
     setSlots([prevSlots[0],prevSlots[1], prevSlots[2], color])
     setbg15(color)
@@ -112,3 +96,89 @@ export function randomRGB(){
 export function shuffle(input) {
   input.sort(() => Math.random() - 0.5);
 }
+
+export function checkColors(slots, colors,setcheckmate,setSlots,count,setCount,setMisatge){
+  let color1 = colors[0]
+  let color2 = colors[1]
+  let color3 = colors[2]
+  if (slots[1] === color1 && slots[2] === color2 && slots[3] === color3){
+    setcheckmate(true)
+    
+  }else if(slots[1] === color1 && slots[2] === color2){
+    setMisatge('60% i 25%')
+    const prevSlots = slots
+    let x = sumarColores(colorPack,0,1) 
+    prevSlots[0] = convertRGBtoHex(x.red, x.green, x.blue)
+    setSlots([prevSlots[0],prevSlots[1],prevSlots[2],null])
+    
+  }else if(slots[2] === color2 && slots[3] === color3) {
+    setMisatge('25% i 15%')
+    const prevSlots = slots
+    let x = sumarColores(colorPack,1,2) 
+    prevSlots[0] = convertRGBtoHex(x.red, x.green, x.blue)
+    setSlots([prevSlots[0],null,prevSlots[2],prevSlots[3]])
+    
+  }else if (slots[1] === color1 && slots[3] === color3) {
+    setMisatge('60% i 15%')
+    const prevSlots = slots
+    let x = sumarColores(colorPack,0,2) 
+    prevSlots[0] = convertRGBtoHex(x.red, x.green, x.blue)
+    setSlots([prevSlots[0],prevSlots[1],null,prevSlots[3]])
+  }else if(slots[1]=== color1) {
+    setMisatge('60%')
+    const prevSlots = slots
+    setSlots([prevSlots[0],prevSlots[1],null,null])
+    if(slots[2]===color3 || slots[3]===color2){
+      if(slots[2]===color3 && slots[3]===color2){
+        setMisatge('60% correcto, 25% y 15% porcentajes erroneos')
+      }else if(slots[2]===color3){
+        setMisatge('60% bien, 25% porcentaje erroneo')
+      }else {
+        setMisatge('60% bien, 15% porcentaje erroneo')
+      }
+    }
+  }else if(slots[2]=== color2){
+    setMisatge('25%')
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,prevSlots[2],null])
+    if(slots[1]===color3 || slots[3]===color1){
+      if(slots[1]===color3 && slots[3]===color1){
+        setMisatge('25% correcto, 60% y 15% porcentajes erroneos')
+      }else if(slots[1]===color3){
+        setMisatge('25% bien, 60% porcentaje erroneo')
+      }else {
+        setMisatge('25% bien, 15% porcentaje erroneo')
+      }
+    }
+  }else if(slots[3]=== color3){
+    setMisatge('15%')
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,null,prevSlots[3]])
+    if(slots[1]===color2 || slots[2]===color1){
+      if(slots[1]===color2 && slots[2]===color1){
+        setMisatge('15% correcto, 60% y 25% porcentajes erroneos')
+      }else if(slots[1]===color2){
+        setMisatge('15% bien, 25% porcentaje erroneo')
+      }else {
+        setMisatge('15% bien, 60% porcentaje erroneo')
+      }
+    }
+  }else if(slots[1]===color2 || slots[1] === color3) {
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,null,null])
+    setMisatge('60% wrong hole')
+  }else if(slots[2]===color1 || slots[2] === color3){
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,null,null])
+    setMisatge('25% wrong hole')
+  }else if(slots[3]===color1 || slots[3] === color2){
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,null,null])
+    setMisatge('15% wrong hole')
+  }else{
+    const prevSlots = slots
+    setSlots([prevSlots[0],null,null,null])
+  }
+  let prevcount = count
+  setCount(prevcount-1)   
+ }
