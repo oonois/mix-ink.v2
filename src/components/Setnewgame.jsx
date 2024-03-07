@@ -24,7 +24,8 @@ export function handleSlots2(color,slots,setSlots,setbg60,setbg25,setbg15) {
     const prevSlots = slots
     setSlots([prevSlots[0],prevSlots[1], prevSlots[2], color])
     setbg15(color)
-  }   
+  }  
+   
 }
 
 
@@ -97,13 +98,55 @@ export function shuffle(input) {
   input.sort(() => Math.random() - 0.5);
 }
 
+export function checkcolors(slots,colors,count,setCount,setcheckmate,setcheck,check){
+  let color1 = colors[0]
+  let color2 = colors[1]
+  let color3 = colors[2]
+  let voltes = [1,2,3]
+  let slotsdev = []
+  let prevslots = slots
+  
+  for(let box of voltes){
+    if(slots[box] === color1 || slots[box] === color2 || slots[box] === color3){
+      if(slots[box] === colors[box-1]){
+        slotsdev.push({
+          posicio: box,
+          box:colors[box],
+          encaixa: true
+        })
+        
+      }else{
+        slotsdev.push({
+          posicio: box,
+          box:colors[box],
+          encaixa: false
+        })
+        prevslots.splice(box,1,null)
+      }
+      }else{
+        slotsdev.push(null)
+        prevslots.splice(box,1,null)
+      }
+
+    }
+    
+    let prevcount = count
+    setCount(prevcount-1) 
+    setcheck(slotsdev)
+    if (slots[1] === color1 && slots[2] === color2 && slots[3] === color3){
+      setcheckmate(true)
+      console.log('check')
+    }
+    
+  }
+
 export function checkColors(slots, colors,setcheckmate,setSlots,count,setCount,setMisatge){
   let color1 = colors[0]
   let color2 = colors[1]
   let color3 = colors[2]
   if (slots[1] === color1 && slots[2] === color2 && slots[3] === color3){
     setcheckmate(true)
-    
+    console.log('check')
   }else if(slots[1] === color1 && slots[2] === color2){
     setMisatge('60% i 25%')
     const prevSlots = slots
@@ -182,3 +225,8 @@ export function checkColors(slots, colors,setcheckmate,setSlots,count,setCount,s
   let prevcount = count
   setCount(prevcount-1)   
  }
+
+ export function refreshPage() {
+    
+  window.location.reload(false);
+}

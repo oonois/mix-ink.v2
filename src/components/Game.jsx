@@ -30,36 +30,37 @@ export default function Game() {
     setThecolor(createnewColor(test))
     setSlots([null,null,null,null])
     
-    //setMisatge('')
-    //setcheckmate(false)
+    setMisatge('')
+    setcheckmate(false)
     setCount(10)
     //console.log(colorPack)
   }
+  
+  
 
   return (
     <div className="flex flex-col  justify-center">
       <NewGame />
+      
       <Screens 
+      colorhexPack = {colorhexPack}
       thecolor = {thecolor}
+      checkmate = {checkmate}
       />
-      <Checkbox 
-      checkColors = {checkColors}
+      <Checkbox  
       slots = {slots}
       setSlots = {setSlots}
       count = {count}
       setCount = {setCount}
       colorhexPack={colorhexPack}
+      
       setcheckmate = {setcheckmate}
       misatge = {misatge}
-      setMisatge = {setMisatge}
-      
-      />
-      <Slots 
-      slots = {slots}
       bg60 = {bg60}
       bg25 = {bg25}
       bg15 = {bg15}
-       />
+      />
+      
       <Paleta 
         colorhexPack = {colorhexPack}
         handleSlots2 = {handleSlots2}

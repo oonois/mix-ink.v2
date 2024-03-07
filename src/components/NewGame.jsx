@@ -1,9 +1,11 @@
-
+import { refreshPage } from "./Setnewgame"
 export default function NewGame() {
   
   return (
     <>
-      <button className="text-2xl text-white">
+      <button 
+      onClick={()=> refreshPage()}
+      className="text-2xl text-white">
       NewGame
       </button>
     </>
