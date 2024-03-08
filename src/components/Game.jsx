@@ -6,6 +6,9 @@ import Paleta from "./Paleta"
 import { useState } from "react"
 import {handleColorPack, createnewColor, sethexcolors, handleSlots2, checkColors} from './Setnewgame'
 
+
+
+
 export default function Game() {
   
   const [baraja, setbaraja] = useState([0,1,2,3,4,5,6])
@@ -20,11 +23,20 @@ export default function Game() {
   const [checkmate, setcheckmate] = useState(false)
   const [misatge, setMisatge] = useState('')
 
+  function shuffle(input) {
+    input.sort(() => Math.random() - 0.5);
+  }
+  
+
   if(colorPack.length === 0) {
     let test = handleColorPack()
     setColorPack(test)
-    //console.log(test)
+    
     let hextest = sethexcolors(test)
+    const prevbaraja = baraja
+    shuffle(prevbaraja)
+    setbaraja(prevbaraja)
+    console.log(prevbaraja)
     setColorHexPack(hextest)
     console.log(hextest)
     setThecolor(createnewColor(test))
@@ -36,6 +48,7 @@ export default function Game() {
     //console.log(colorPack)
   }
   
+
   
 
   return (
@@ -60,7 +73,7 @@ export default function Game() {
       bg25 = {bg25}
       bg15 = {bg15}
       />
-      
+      //he creat una bajara random i sha denviar al component per desordenar els botons sense que afecti la logica del joc
       <Paleta 
         colorhexPack = {colorhexPack}
         handleSlots2 = {handleSlots2}
@@ -69,6 +82,7 @@ export default function Game() {
         setbg60 = {setbg60}
         setbg25 = {setbg25}
         setbg15 = {setbg15}
+        
       />
     </div>
   )
